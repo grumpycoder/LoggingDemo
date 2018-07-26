@@ -1,5 +1,7 @@
-﻿using LoggingDemo.Core.Attributes;
+﻿using LoggingDemo.Core;
+using LoggingDemo.Core.Attributes;
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace LoggingDemo.Web.Controllers
@@ -23,6 +25,10 @@ namespace LoggingDemo.Web.Controllers
         [TrackPerformance(Constants.ProductName, Constants.LayerName)]
         public ActionResult Contact()
         {
+            Helpers.LogWebDiagnostic(Constants.ProductName, Constants.LayerName,
+                "Just checking in....",
+                new Dictionary<string, object> { { "Very", "Important" } });
+
             ViewBag.Message = "Your contact page.";
 
             return View();

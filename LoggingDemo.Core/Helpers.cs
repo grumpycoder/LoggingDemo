@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Security.Claims;
 using System.Web;
 
@@ -44,6 +45,37 @@ namespace LoggingDemo.Core
             };
 
             Flogger.WriteUsage(usageInfo);
+        }
+
+        public static void LogWebDiagnostic(string product, string layer, string message,
+            Dictionary<string, object> diagnosticInfo = null)
+        {
+            var writeDiagnostics = Convert.ToBoolean(ConfigurationManager.AppSettings["EnableDiagnostics"]);
+            if (!writeDiagnostics)  // doing this to avoid going through all the data - user, session, etc.
+                return;
+
+            string userId, userName, location;
+            var webInfo = GetWebFloggingData(out userId, out userName, out location);
+            if (diagnosticInfo != null)
+            {
+                foreach (var key in diagnosticInfo.Keys)
+                    webInfo.Add(key, diagnosticInfo[key]);
+            }
+
+            var diagInfo = new FlogDetail()
+            {
+                Product = product,
+                Layer = layer,
+                Location = location,
+                UserId = userId,
+                UserName = userName,
+                Hostname = Environment.MachineName,
+                CorrelationId = HttpContext.Current.Session.SessionID,
+                Message = message,
+                AdditionalInfo = webInfo
+            };
+
+            Flogger.WriteDiagnostic(diagInfo);
         }
 
         public static void LogWebError(string product, string layer, Exception ex)
