@@ -36,7 +36,7 @@ namespace LoggingDemo.Web
                     errorControllerAction = "NotFound";
                     break;
                 default:
-                    //Helpers.LogWebError(Constants.ProductName, Constants.LayerName, ex);
+                    Helpers.LogWebError(Constants.ProductName, Constants.LayerName, ex);
                     errorControllerAction = "Index";
                     break;
             }
