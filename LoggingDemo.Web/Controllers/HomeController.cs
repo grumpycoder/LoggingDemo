@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LoggingDemo.Core.Attributes;
+using System;
 using System.Web.Mvc;
 
 namespace LoggingDemo.Web.Controllers
@@ -11,6 +12,7 @@ namespace LoggingDemo.Web.Controllers
             return View();
         }
 
+        [TrackUsage(Constants.ProductName, Constants.LayerName, "View About")]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -18,6 +20,7 @@ namespace LoggingDemo.Web.Controllers
             return View();
         }
 
+        [TrackPerformance(Constants.ProductName, Constants.LayerName)]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
