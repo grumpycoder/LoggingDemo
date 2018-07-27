@@ -1,6 +1,7 @@
 ﻿using LoggingDemo.Core;
 using LoggingDemo.Core.Attributes;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Web.Mvc;
 
 namespace LoggingDemo.Web.Controllers
@@ -10,8 +11,8 @@ namespace LoggingDemo.Web.Controllers
         [TrackUsage(Constants.ProductName, Constants.LayerName, "View Home")]
         public ActionResult Index()
         {
-            //var db = new SqlCommand("select * from dbo.logs", new SqlConnection("connection"));
-            //db.ExecuteNonQuery();
+            var db = new SqlCommand("select * from dbo.logs", new SqlConnection("connection"));
+            db.ExecuteNonQuery();
 
             return View();
         }
