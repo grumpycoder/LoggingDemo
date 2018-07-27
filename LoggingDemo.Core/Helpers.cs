@@ -31,10 +31,11 @@ namespace LoggingDemo.Core
                     webInfo.Add($"Info-{key}", additionalInfo[key]);
             }
 
-            var usageInfo = new FlogDetail()
+            var usageInfo = new LogDetail()
             {
                 Product = product,
                 Layer = layer,
+                Timestamp = DateTime.Now,
                 Location = location,
                 UserId = userId,
                 UserName = userName,
@@ -44,7 +45,7 @@ namespace LoggingDemo.Core
                 AdditionalInfo = webInfo
             };
 
-            Flogger.WriteUsage(usageInfo);
+            Logger.WriteUsage(usageInfo);
         }
 
         public static void LogWebDiagnostic(string product, string layer, string message,
@@ -62,11 +63,12 @@ namespace LoggingDemo.Core
                     webInfo.Add(key, diagnosticInfo[key]);
             }
 
-            var diagInfo = new FlogDetail()
+            var diagInfo = new LogDetail()
             {
                 Product = product,
                 Layer = layer,
                 Location = location,
+                Timestamp = DateTime.Now,
                 UserId = userId,
                 UserName = userName,
                 Hostname = Environment.MachineName,
@@ -75,7 +77,7 @@ namespace LoggingDemo.Core
                 AdditionalInfo = webInfo
             };
 
-            Flogger.WriteDiagnostic(diagInfo);
+            Logger.WriteDiagnostic(diagInfo);
         }
 
         public static void LogWebError(string product, string layer, Exception ex)
@@ -83,11 +85,12 @@ namespace LoggingDemo.Core
             string userId, userName, location;
             var webInfo = GetWebFloggingData(out userId, out userName, out location);
 
-            var errorInformation = new FlogDetail()
+            var errorInformation = new LogDetail()
             {
                 Product = product,
                 Layer = layer,
                 Location = location,
+                Timestamp = DateTime.Now,
                 UserId = userId,
                 UserName = userName,
                 Hostname = Environment.MachineName,
@@ -96,10 +99,10 @@ namespace LoggingDemo.Core
                 AdditionalInfo = webInfo
             };
 
-            Flogger.WriteError(errorInformation);
+            Logger.WriteError(errorInformation);
         }
 
-        // Add Assemblies ref to Flogger.Core and System.Web
+        // Add Assemblies ref to Logger.Core and System.Web
         // Add NuGet package for Microsoft.AspNet.Mvc
         public static Dictionary<string, object> GetWebFloggingData(out string userId,
             out string userName, out string location)

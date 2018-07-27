@@ -8,17 +8,18 @@ namespace LoggingDemo.Core
     public class PerfTracker
     {
         private readonly Stopwatch _sw;
-        private readonly FlogDetail _infoToLog;
+        private readonly LogDetail _infoToLog;
 
         public PerfTracker(string name, string userId, string userName,
             string location, string product, string layer)
         {
             _sw = Stopwatch.StartNew();
-            _infoToLog = new FlogDetail()
+            _infoToLog = new LogDetail()
             {
                 Message = name,
                 UserId = userId,
                 UserName = userName,
+                Timestamp = DateTime.Now,
                 Product = product,
                 Layer = layer,
                 Location = location,
@@ -45,7 +46,7 @@ namespace LoggingDemo.Core
         {
             _sw.Stop();
             _infoToLog.ElapsedMilliseconds = _sw.ElapsedMilliseconds;
-            Flogger.WritePerf(_infoToLog);
+            Logger.WritePerf(_infoToLog);
         }
     }
 }

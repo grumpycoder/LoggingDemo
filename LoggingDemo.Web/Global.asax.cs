@@ -9,7 +9,7 @@ using System.Web.Routing;
 
 namespace LoggingDemo.Web
 {
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
         {
@@ -44,7 +44,7 @@ namespace LoggingDemo.Web
             var httpContext = ((MvcApplication)sender).Context;
             httpContext.ClearError();
             httpContext.Response.Clear();
-            //httpContext.Response.StatusCode = httpStatus;
+            httpContext.Response.StatusCode = httpStatus;
             httpContext.Response.TrySkipIisCustomErrors = true;
 
             var routeData = new RouteData();
@@ -55,5 +55,6 @@ namespace LoggingDemo.Web
             ((IController)controller)
                 .Execute(new RequestContext(new HttpContextWrapper(httpContext), routeData));
         }
+
     }
 }

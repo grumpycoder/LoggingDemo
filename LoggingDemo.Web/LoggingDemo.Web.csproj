@@ -229,7 +229,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LoggingDemo.Core\LoggingDemo.Core.csproj">
-      <Project>{0350BF28-8F49-4A9A-B5C1-107C92E0E4AD}</Project>
+      <Project>{0350bf28-8f49-4a9a-b5c1-107c92e0e4ad}</Project>
       <Name>LoggingDemo.Core</Name>
     </ProjectReference>
   </ItemGroup>

@@ -3,13 +3,9 @@ using System.Collections.Generic;
 
 namespace LoggingDemo.Core
 {
-    public class FlogDetail
+    public class LogDetail
     {
-        public FlogDetail()
-        {
-            Timestamp = DateTime.Now;
-        }
-        public DateTime Timestamp { get; private set; }
+        public DateTime Timestamp { get; set; }
         public string Message { get; set; }
         // WHERE
         public string Product { get; set; }
@@ -25,8 +21,8 @@ namespace LoggingDemo.Core
         // EVERYTHING ELSE
         public long? ElapsedMilliseconds { get; set; }  // only for performance entries
         public Exception Exception { get; set; }  // the exception for error logging
+        public CustomException CustomException { get; set; }
         public string CorrelationId { get; set; } // exception shielding from server to client
         public Dictionary<string, object> AdditionalInfo { get; set; }  // everything else
-
     }
 }

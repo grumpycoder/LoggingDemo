@@ -1,6 +1,5 @@
 ﻿using LoggingDemo.Core;
 using LoggingDemo.Core.Attributes;
-using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -8,9 +7,12 @@ namespace LoggingDemo.Web.Controllers
 {
     public class HomeController : Controller
     {
+        [TrackUsage(Constants.ProductName, Constants.LayerName, "View Home")]
         public ActionResult Index()
         {
-            throw new Exception("Can't seem to get it right....");
+            //var db = new SqlCommand("select * from dbo.logs", new SqlConnection("connection"));
+            //db.ExecuteNonQuery();
+
             return View();
         }
 
@@ -22,7 +24,7 @@ namespace LoggingDemo.Web.Controllers
             return View();
         }
 
-        [TrackPerformance(Constants.ProductName, Constants.LayerName)]
+        [TrackUsage(Constants.ProductName, Constants.LayerName, "View Contact")]
         public ActionResult Contact()
         {
             Helpers.LogWebDiagnostic(Constants.ProductName, Constants.LayerName,
